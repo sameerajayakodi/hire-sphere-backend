@@ -2,6 +2,8 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import connectDB from "./config/db.js";
+import "./config/instrument.js";
+
 //Init
 const app = express();
 
