@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 
-export const handleWebhook = async (req, res) => {
+export const clerkWebhooks = async (req, res) => {
   try {
     //Create a svix instance with clear webhook secret
     const whook = new Webhook(process.env.CLEARK_WEBHOOK_SECRET);
