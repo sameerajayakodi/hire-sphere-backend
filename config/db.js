@@ -1,12 +1,16 @@
 import mongoose from "mongoose";
 
-//Function to connect to the MongoDB database
 const connectDB = async () => {
-  mongoose.connection.on("connected", () => {
-    console.log("Mongoose is connected!!!!");
-  });
-
-  await mongoose.connect(`${process.env.MONGODB_URI}/hire-sphere`);
+  try {
+    await mongoose.connect(`${process.env.MONGODB_URI}/hire-sphere`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB connected successfully!");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    process.exit(1);
+  }
 };
 
 export default connectDB;

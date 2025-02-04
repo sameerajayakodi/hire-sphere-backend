@@ -1,11 +1,13 @@
 import { Webhook } from "svix";
+import User from "../models/User.js";
 
 export const clerkWebhooks = async (req, res) => {
   try {
     //Create a svix instance with clear webhook secret
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
     //Verify the webhook signature
-    await whook.verify(JSON.stringify(req.body), {
+    const payload = req.rawBody; // Use raw body instead of JSON.stringify(req.body)
+    await whook.verify(payload, {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
@@ -16,17 +18,22 @@ export const clerkWebhooks = async (req, res) => {
     //switch case for defferent events
     switch (type) {
       case "user.created": {
-        const userData = {
-          _id: data.id,
-          email: data.email_addresses[0].email_address,
-          name: data.first_name + " " + data.last_name,
-          image: data.image_url,
-          resume: "",
-        };
+        try {
+          const userData = {
+            _id: data.id,
+            email: data.email_addresses[0].email_address,
+            name: `${data.first_name} ${data.last_name}`,
+            image: data.image_url,
+            resume: "",
+          };
 
-        await User.create(userData);
-        res.json({ message: "User Created Successfully" });
-        break;
+          const newUser = await User.create(userData);
+          console.log("User saved to DB:", newUser); // Debugging log
+          return res.status(201).json({ message: "User Created Successfully" });
+        } catch (err) {
+          console.error("Error saving user to DB:", err);
+          return res.status(500).json({ message: "Database Error" });
+        }
       }
 
       case "user.updated": {
