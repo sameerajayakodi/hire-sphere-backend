@@ -8,7 +8,7 @@ import {
   loginCompany,
   postJob,
   registerCompany,
-} from "../controllers/companyController";
+} from "../controllers/companyController.js";
 
 const router = express.Router();
 
