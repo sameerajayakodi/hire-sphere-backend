@@ -6,7 +6,7 @@ const connectDB = async () => {
     console.log("Mongoose is connected!!!!");
   });
 
-  await mongoose.connect(`${process.env.MONGO_URI}/hire-sphere`);
+  await mongoose.connect(`${process.env.MONGODB_URI}/hire-sphere`);
 };
 
 export default connectDB;

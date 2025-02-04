@@ -3,9 +3,9 @@ import { Webhook } from "svix";
 export const clerkWebhooks = async (req, res) => {
   try {
     //Create a svix instance with clear webhook secret
-    const whook = new Webhook(process.env.CLEARK_WEBHOOK_SECRET);
+    const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
     //Verify the webhook signature
-    const verified = await whook.verify(JSON.stringify(req.body), {
+    await whook.verify(JSON.stringify(req.body), {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
@@ -29,18 +29,20 @@ export const clerkWebhooks = async (req, res) => {
         break;
       }
 
-      case "event.updated":
-        {
-          const userData = {
-            name: data.first_name + " " + data.last_name,
-            email: data.email_addresses[0].email_address,
-            image: data.image_url,
-          };
-        }
+      case "user.updated": {
+        const userData = {
+          email: data.email_addresses[0].email_address,
+          name: data.first_name + " " + data.last_name,
+
+          image: data.image_url,
+        };
+
         await User.findByIdAndUpdate(data.id, userData);
         res.json({ message: "User Updated Successfully" });
         break;
-      case "event.deleted": {
+      }
+
+      case "user.deleted": {
         await User.findByIdAndDelete(data.id);
         res.json({ message: "User Deleted Successfully" });
         break;
