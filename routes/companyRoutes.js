@@ -35,3 +35,5 @@ router.post("/change-status", changeJobApplicationStatus);
 
 //Change Application Visibility
 router.post("/change-visibility", changeVisibility);
+
+export default router;
