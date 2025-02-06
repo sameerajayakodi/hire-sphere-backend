@@ -38,7 +38,7 @@ export const registerCompany = async (req, res) => {
         image: company.image,
       },
 
-      token :generateToken(company._id),
+      token: generateToken(company._id),
     });
   } catch (error) {
     res.json({ success: false, message: error.message });
