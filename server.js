@@ -9,6 +9,7 @@ import { clerkWebhooks } from "./controllers/webhooks.js";
 import companyRoutes from "./routes/companyRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import { clerkMiddleware } from "@clerk/express";
 //Init
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(
     },
   })
 );
+app.use(clerkMiddleware());
 //Routes
 app.get("/", (req, res) => res.send("API Working"));
 app.get("/debug-sentry", function mainHandler(req, res) {
