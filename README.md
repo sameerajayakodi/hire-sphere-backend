@@ -92,10 +92,12 @@ npm run dev
 4. Deploy!
 
 ## 🌐 Live Demo & GitHub Repository
-🔗 **Live Demo**: [Your Vercel Deployment Link](#)
+🔗 **Live Demo**: [https://hire-sphere-client.vercel.app/](#)
 
-💻 **GitHub Repo**: [Your GitHub Repository Link](#)
 
+💻 **GitHub Repo**: 
+[https://github.com/sameerajayakodi/hire-sphere-backend](#)
+[https://github.com/sameerajayakodi/hire-sphere-client](#)
 ## 🤝 Contributing
 Pull requests are welcome! Feel free to **open an issue** if you have feature requests or bug reports.
 
@@ -104,4 +106,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-Made with ❤️ by [Your Name] 🚀
+Made with ❤️ by Sameera Jayakodi 🚀
